@@ -15,8 +15,8 @@ def index(request):
 
     # The 'all()' is implied by default.
     num_authors = Author.objects.count()
-    num_genres = Genre.objects.filter(title__icontains='Computer Science').count()
-    num_books_with_the = Book.objects.filter(title__icontains='the').count()
+    num_genres = Genre.objects.filter().count()
+    num_books_with_filter = Book.objects.filter(title__icontains='the').count()
 
     context = {
         'num_books': num_books,
@@ -24,7 +24,7 @@ def index(request):
         'num_instances_available': num_instances_available,
         'num_authors': num_authors,
         'num_genres': num_genres,
-        'num_books_with_the': num_books_with_the,
+        'num_books_with_filter': num_books_with_filter,
     }
 
     # Render the HTML template index.html with the data in the context variable
