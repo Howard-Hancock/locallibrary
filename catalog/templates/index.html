@@ -18,6 +18,9 @@
     <li><strong>Genres:</strong> {{ num_genres }}</li>
     <li><strong>Specified Books:</strong> {{ num_books_with_filter }}</li>
   </ul>
+  <p>
+    You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
+  </p>
   <img src="https://w3.cs.jmu.edu/cs347/f26/stewart.jpeg" alt="Dr. Stewart rockin' that Carolina Blue koy Kahala">
   <img src="(% static 'images/2010-kodiak-bear-1.jpg' %)" alt="Bear">
 {% endblock %}
