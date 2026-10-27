@@ -30,6 +30,7 @@
                             <button type="submit" class="btn btn-link">Logout</button>
                         </form>
                         </li>
+                        <li><a href="{% url 'my-borrowed' %}">My Books</a></li>
                     {% else %}
                         <li><a href="{% url 'account_login' %}?next={{ request.path }}">Login</a></li>
                         <li><a href="{% url 'account_signup' %}">Sign up</a></li>
