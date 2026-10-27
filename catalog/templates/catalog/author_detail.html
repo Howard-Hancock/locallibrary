@@ -7,8 +7,8 @@
 
   <h4>Books</h4>
   <ul>
-    {% for book in author.book_set.all %}
-      <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a><p>{{book.summary}}</p></li>
+    {% for book in author.books.all %}
+      <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a><p>{{ book.summary }}</p></li>
     {% endfor %}
   </ul>
 {% endblock %}
