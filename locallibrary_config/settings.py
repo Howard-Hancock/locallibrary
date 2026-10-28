@@ -19,7 +19,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 # FYI: OS environment variables take precedence over variables from .env
 env.read_env(str(BASE_DIR / ".env"))
-
+ASGI_APPLICATION = "locallibrary_config.asgi.application"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                {
+                    "address": env("REDIS_URL"),
+                    "socket_timeout": env.int("REDIS_SOCKET_TIMEOUT"),
+                }
+            ],
+        },
+    },
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -49,6 +62,7 @@ INSTALLED_APPS = [
     'chat',
     'allauth',
     'allauth.account',
+    'ninja',
 ]
 
 MIDDLEWARE = [
@@ -81,14 +95,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'locallibrary_config.wsgi.application'
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [env("REDIS_URL")],
-        },
-    },
-}
 
 
 # Database
