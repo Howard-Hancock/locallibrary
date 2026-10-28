@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -45,4 +47,14 @@ from .api import api
 
 urlpatterns += [
     path('api/', api.urls),
+]
+# locallibrary_config/urls.py
+# (after the existing blocks)
+# Mount the TaskFlow API from the Django Ninja Tutorial
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+from taskflow.api import api as taskflow_api, api_v2 as taskflow_api_v2
+
+urlpatterns += [
+    path('taskflow/api/v2/', taskflow_api_v2.urls),
+    path('taskflow/api/', taskflow_api.urls),
 ]
