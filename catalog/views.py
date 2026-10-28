@@ -173,7 +173,7 @@ class BookUpdate(PermissionRequiredMixin, BookAuthorFormSetMixin, UpdateView):
 
 class BookDelete(PermissionRequiredMixin, DeleteView):
     model = Book
-    success_url = reverse_lazy('authors')
+    success_url = reverse_lazy('books')
     permission_required = 'catalog.delete_book'
 
     def form_valid(self, form):
