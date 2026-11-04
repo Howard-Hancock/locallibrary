@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.openid_connect',
+    'profiles'
 ]
 
 MIDDLEWARE = [
@@ -217,3 +218,5 @@ if env.bool('CANVAS_ENABLED', default=False):
             },
         ],
     }
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'profiles.forms.SignupForm'
