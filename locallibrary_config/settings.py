@@ -66,6 +66,9 @@ INSTALLED_APPS = [
     'projects',
     'tasks',
     'accounts',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.openid_connect',
 ]
 
 MIDDLEWARE = [
@@ -178,3 +181,39 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+
+SOCIALACCOUNT_PROVIDERS = {}
+
+GOOGLE_CLIENT_ID = env.str('GOOGLE_CLIENT_ID', default='')
+if GOOGLE_CLIENT_ID:
+    SOCIALACCOUNT_PROVIDERS['google'] = {
+        'APPS': [
+            {
+                'client_id': GOOGLE_CLIENT_ID,
+                'secret': env.str('GOOGLE_CLIENT_SECRET'),
+            },
+        ],
+        'SCOPE': ['profile', 'email'],
+        'OAUTH_PKCE_ENABLED': True,
+    }
+
+if env.bool('CANVAS_ENABLED', default=False):
+    SOCIALACCOUNT_PROVIDERS['openid_connect'] = {
+        'APPS': [
+            {
+                'provider_id': 'canvas',
+                'name': 'JMU Canvas',
+                'client_id': env.str('CANVAS_CLIENT_ID'),
+                'secret': env.str('CANVAS_CLIENT_SECRET'),
+                'settings': {
+                    'server_url': 'https://canvas.jmu.edu',
+                    'scope': ['openid'],
+                    'fetch_userinfo': True,
+                    'uid_field': 'id',
+                    'openid_configuration_overrides': {
+                        'userinfo_endpoint': 'https://canvas.jmu.edu/api/v1/users/self',
+                    },
+                },
+            },
+        ],
+    }
